@@ -17,19 +17,17 @@ echo -e "Please enter system username you want to use for Gitea: "
 read giteauser
 
 # Update everything first
-yum update -y
+dnf update -y
 
 # Install EPEL
-yum -y install epel-release
+dnf -y install epel-release
 
 # Install required packages
-yum -y install git mariadb-server nginx
+dnf -y install git mariadb-server nginx
 
 # Enable MariaDB & Nginx on boot and start the server
-systemctl enable mariadb.service
-systemctl start mariadb.service
-systemctl enable nginx
-systemctl start nginx
+systemctl enable --now mariadb
+systemctl enable --now nginx
 
 # MySQL Secure Installation
 mysql -u root <<-EOF
@@ -64,7 +62,7 @@ chown root:$giteauser /etc/gitea
 chmod 770 /etc/gitea
 
 # Download & Install Gitea
-wget -O gitea https://dl.gitea.io/gitea/1.13.0/gitea-1.13.0-linux-amd64
+wget -O gitea https://dl.gitea.io/gitea/1.15.9/gitea-1.15.9-linux-amd64
 chmod +x gitea
 cp gitea /usr/local/bin/gitea
 
@@ -104,8 +102,7 @@ EOF
 
 # Enable & Start Gitea at boot
 systemctl daemon-reload
-systemctl enable gitea
-systemctl start gitea
+systemctl enable --now gitea
 
 # Check if Gitea is running
 systemctl status gitea
@@ -141,6 +138,7 @@ echo "MySQL root password: $mysqlrootpass"
 echo "Gitea database name: $giteadbname"
 echo "Gitea database username: $giteadbuser"
 echo "Gitea database password: $giteadbpass"
+echo "Gitea user: $giteauser"
 echo "******************************************************"
 
 # Get IP
