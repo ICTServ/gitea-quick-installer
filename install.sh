@@ -20,7 +20,11 @@ read giteauser
 dnf update -y
 
 # Install EPEL
-dnf -y install epel-release
+dnf -y install wget
+
+# Install Nginx & MariaDB 10.4 Repo
+wget https://hostboxcp.com/nginx/nginx.repo -P /etc/yum.repos.d/
+wget https://hostboxcp.com/mariadb/MariaDB-x86_64.repo.repo -P /etc/yum.repos.d/
 
 # Install required packages
 dnf -y install git mariadb-server nginx
@@ -62,7 +66,7 @@ chown root:$giteauser /etc/gitea
 chmod 770 /etc/gitea
 
 # Download & Install Gitea
-wget -O gitea https://dl.gitea.io/gitea/1.16.0/gitea-1.16.0-linux-amd64
+wget -O gitea https://dl.gitea.io/gitea/1.16.3/gitea-1.16.3-linux-amd64
 chmod +x gitea
 cp gitea /usr/local/bin/gitea
 
