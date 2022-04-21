@@ -66,7 +66,8 @@ chown root:$giteauser /etc/gitea
 chmod 770 /etc/gitea
 
 # Download & Install Gitea
-wget -O gitea https://dl.gitea.io/gitea/1.16.3/gitea-1.16.3-linux-amd64
+version=1.16.6
+wget -O gitea https://dl.gitea.io/gitea/$version/gitea-$version-linux-amd64
 chmod +x gitea
 cp gitea /usr/local/bin/gitea
 
