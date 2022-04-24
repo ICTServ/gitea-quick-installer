@@ -30,8 +30,7 @@ wget https://hostboxcp.com/mariadb/MariaDB-x86_64.repo.repo -P /etc/yum.repos.d/
 dnf -y install git mariadb-server nginx
 
 # Enable MariaDB & Nginx on boot and start the server
-systemctl enable --now mariadb
-systemctl enable --now nginx
+systemctl enable --now mariadb nginx
 
 # MySQL Secure Installation
 mysql -u root <<-EOF
