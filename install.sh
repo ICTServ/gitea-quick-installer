@@ -72,6 +72,7 @@ cp gitea /usr/local/bin/gitea
 
 # Create Gitea Service
 touch /etc/systemd/system/gitea.service
+# wget https://raw.githubusercontent.com/istiak101/gitea-quick-installer/master/gitea.service
 
 cat > /etc/systemd/system/gitea.service <<EOF
 [Unit]
@@ -112,18 +113,7 @@ systemctl enable --now gitea
 systemctl status gitea
 
 # Create Nginx config
-touch /etc/nginx/conf.d/gitea.conf
-
-cat > /etc/nginx/conf.d/gitea.conf <<EOF
-server {
-    listen 80;
-    server_name localhost;
-
-    location / {
-        proxy_pass http://localhost:3000;
-    }
-}
-EOF
+wget https://raw.githubusercontent.com/istiak101/gitea-quick-installer/master/gitea.conf -P /etc/nginx/conf.d/
 
 # Restart Nginx
 systemctl restart nginx
