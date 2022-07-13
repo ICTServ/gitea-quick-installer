@@ -23,7 +23,7 @@ dnf update -y
 dnf -y install wget
 
 # Install Nginx & MariaDB 10.4 Repo
-dnf config-manager --add-repo https://hostboxcp.com/nginx/nginx.repo -P /etc/yum.repos.d/
+dnf config-manager --add-repo https://hostboxcp.com/nginx/nginx.repo
 dnf config-manager --add-repo https://hostboxcp.com/mariadb/MariaDB-10.6-RHEL-x86_64.repo
 
 # Install required packages
