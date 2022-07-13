@@ -23,8 +23,8 @@ dnf update -y
 dnf -y install wget
 
 # Install Nginx & MariaDB 10.4 Repo
-wget https://hostboxcp.com/nginx/nginx.repo -P /etc/yum.repos.d/
-wget https://hostboxcp.com/mariadb/MariaDB-x86_64.repo.repo -P /etc/yum.repos.d/
+dnf config-manager --add-repo https://hostboxcp.com/nginx/nginx.repo -P /etc/yum.repos.d/
+dnf config-manager --add-repo https://hostboxcp.com/mariadb/MariaDB-10.6-RHEL-x86_64.repo
 
 # Install required packages
 dnf -y install git mariadb-server nginx
@@ -34,7 +34,7 @@ systemctl enable --now mariadb nginx
 
 # MySQL Secure Installation
 mysql -u root <<-EOF
-UPDATE mysql.user SET Password=PASSWORD('$mysqlrootpass') WHERE User='root';
+ALTER USER 'root'@'localhost' IDENTIFIED BY '$mysqlrootpass';
 DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
 DELETE FROM mysql.user WHERE User='';
 DELETE FROM mysql.db WHERE Db='test' OR Db='test_%';
@@ -65,7 +65,7 @@ chown root:$giteauser /etc/gitea
 chmod 770 /etc/gitea
 
 # Download & Install Gitea
-version=1.16.8
+version=1.16.9
 wget -O gitea.xz https://dl.gitea.io/gitea/$version/gitea-$version-linux-amd64.xz
 xz -d gitea.xz
 chmod +x gitea
